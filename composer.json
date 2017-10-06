@@ -1,0 +1,31 @@
+{
+    "name": "webstractions/sage-devtools",
+    "description": "Extends Sage ~9-beta with handy development tools. ",
+    "type": "package",
+    "keywords": [
+        "webstractions",
+        "roots",
+        "sage"
+    ],
+    "homepage": "https://github.com/webstractions/sage-devtools",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ron Pugmire",
+            "homepage": "https://github.com/webstractions",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.7",
+        "filp/whoops": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "SageDevTools\\": "src"
+        }
+    }
+}
