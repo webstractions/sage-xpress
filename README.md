@@ -1,16 +1,11 @@
-# Roots\Sage Developer Extensions
+# Sage Xpress
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/appstract/laravel-blade-directives/master.svg?style=flat-square)](https://travis-ci.org/webstractions/sage955)
 
-A collection of extensions for your Roots\Sage themes.
+A collection of extensions for your Roots\Sage 9.x beta themes.
 
 - **Blade Directives:** @directives for loop, query, sidebar, FontAwesome, and more.
-- **Whoops Pretty Debugger:** PHP error handler for cool kids .
-- **GetTheImage:** (very soon) Adapted version of Justin Tadlock's plugin for Sage use.
-- **Schema Attributes:** (planned) Add schema.org attributes with no fuss.
-- **Template Utilities:** (planned) Bootstrap Walker Menu, filter/action configurations, etc.
-- **Sage CLI:** (planned) A Sage counterpart to Laravel Artisan.
 
 ## Requirements
 This package is specifically built for `Roots\Sage 9.0.0-beta.4` and above. It goes without saying that your development server needs to have `Php 7.0` or greater as well.
@@ -20,30 +15,8 @@ This package is specifically built for `Roots\Sage 9.0.0-beta.4` and above. It g
 You can install the package via composer:
 
 ```bash
-composer require webstractions/sage-devtools
+composer require webstractions/sage-xpress
 ```
-
-## Whoops Setup
-Add the following to the top of your `app\setup.php` file. The higher up the better, preferrably following all of the `use` statements:
-
-```php
-namespace App;
-
-use Roots\Sage\Container;
-use Roots\Sage\Assets\JsonManifest;
-use Roots\Sage\Template\Blade;
-use Roots\Sage\Template\BladeProvider;
-use This\Other\Class\Too;
-
-// Copy this part into app\setup.php
-function registerWhoops() {
-    $whoops = new \Whoops\Run;
-    $whoops->pushHandler(new \Whoops\Handler\PrettyPageHandler);
-    $whoops->register();
-}
-registerWhoops();
-```
-
 ## Blade Directives Setup
 
 Add to your `after_theme_setup` action in `app/setup.php` file. It is important that you make this addition **after** Sage's singleton for the `BladeProvider`:
@@ -65,10 +38,13 @@ add_action('after_setup_theme', function (){
 
   // Copy this part into app\setup.php after_theme_setup action.
   // Make sure it follows the Sage singleton for the Blade Provider.
-  (new \SageDevTools\Blade\DirectivesProvider(sage()))->register();
+  (new \SageXpress\Blade\DirectivesProvider(sage()))->register();
 
 });
 ```
+
+## Acknowledgements
+
 
 ## Blade Directives Usage
 

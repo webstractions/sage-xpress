@@ -1,6 +1,6 @@
 <?php
 
-use SageDevTools\Blade\DirectivesRepository;
+use SageXpress\Blade\DirectivesRepository;
 
 return [
 

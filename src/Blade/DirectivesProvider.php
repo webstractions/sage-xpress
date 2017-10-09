@@ -1,6 +1,6 @@
 <?php
 
-namespace SageDevTools\Blade;
+namespace SageXpress\Blade;
 
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
