@@ -94,7 +94,13 @@ return [
     ],
 ];
 ```
-
+You can safely remove any configured menus from your `setup.php` file.
+```php
+// Delete this function. MenuProvider has it handled.
+register_nav_menus([
+	'primary' => __('Primary Navigation', 'sage'),
+]);
+```
 Use `@menu` directive in your Blade files to render a menu.
 ```blade
 @menu('primary')
