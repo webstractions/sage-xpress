@@ -48,9 +48,69 @@ add_action('after_setup_theme', function (){
 ## Overview
 
 ### Blade Directives
+There are a whole slew of directives, and requires its own [Blade Directives Documentation](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md).
 
+One example, the `@loop` directive does a nice job of cleaning up your templates.
+```blade
+@loop
+
+   {{-- Code inside of the loop --}}
+
+@endloop
+```
+The directive will output this php.
+
+```php
+if (have_posts()) :
+  while(have_posts()) :
+    the_post();
+
+    // Code inside of the loop
+
+  endwhile;
+endif;
+```
 ### Menu Provider
+Configure your menus in `config\menu.php`. The `MenuProvider` will handle the registration with WordPress.
+```php
+<?php
 
+return [
+
+    'register' => [
+        'primary'    => __('Primary Navigation', 'sage'),
+    ],
+
+    'default' => [],
+
+    'primary' => [
+        'theme_location'    => 'primary',
+        'container_class'   => 'collapse navbar-collapse',
+        'container_id'      => 'primary-menu',
+        'menu_class'        => 'navbar-nav ml-auto',
+        'depth'             => 2,
+        'fallback_cb'       => '\App\Lib\WP_Bootstrap_Navwalker::fallback',
+        'walker'            => new \App\Lib\WP_Bootstrap_Navwalker(),
+    ],
+];
+```
+
+Use `@menu` directive in your Blade files to render a menu.
+```blade
+@menu('primary')
+```
+
+Alternatively, you can create a static rendering function in `app\controllers\app.php`
+```php
+public static function renderMenu($name='')
+{
+    return sage('menu')->render($name);
+}
+```
+Then call the function in your Blade files.
+```blade
+@php( \App::renderMenu('primary') )
+```
 ## Documentation
 - [Blade Directives](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md)
 
