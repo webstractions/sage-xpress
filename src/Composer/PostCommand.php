@@ -1,10 +1,5 @@
 <?php
 
-use Symfony\Component\Finder\Finder;
-use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Filesystem\Exception\IOException;
-use Composer\Script\Event;
-
 class PostCommand {
 
     protected $sourcePath;
