@@ -46,6 +46,9 @@ add_action('after_setup_theme', function (){
 });
 ```
 ## Overview
+Outside of one line of code that you need to add to `setup.php` and the config files, there is nothing else you need to do. Config files are automatically registered with the Sage Container, no messing with `functions.php`.
+
+Additionally, your `setup.php` file should actually be leaner. No need for `widgets_init`, `register_nav_menus`, and funky `wp_nav_menu` callouts in your controllers or blade files. The providers automatically do the registration for you based on your configurations and there are Blade Directives to spew them out.
 
 ### Blade Directives
 There are a whole slew of directives, and requires its own [Blade Directives Documentation](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md).
@@ -116,6 +119,73 @@ public static function renderMenu($name='')
 Then call the function in your Blade files.
 ```blade
 @php( \App::renderMenu('primary') )
+```
+
+### Sidebar Provider
+Configure your sidebars in `config\sidebar.php`. The `SidebarProvider` will handle the registration with WordPress.
+
+```php
+<?php
+
+return [
+
+    /**
+     * Ids of sidebars you want to register.
+     */
+    "register" => [
+        'sidebar-primary',
+    ],
+
+    /**
+     * Default config options for all sidebars
+     */
+    "default" => [
+        'after_widget'  => "</section>",
+        'before_title'  => '<h3 class="widget-title">',
+        'after_title'   => '</h3>'
+    ],
+
+    /**
+     * Sidebar configuration.
+     */
+    'sidebar-primary' => [
+        'name'          => __('Primary', 'sage'),
+        'id'            => 'sidebar-primary',
+        'before_widget' => '<section class="widget %1$s %2$s">',
+    ],
+];
+```
+
+You can safely remove any configured sidebars from your `setup.php` file.
+```php
+// Delete this function. The SidebarProvider has it handled.
+/**
+ * Register sidebars
+ */
+add_action('widgets_init', function () {
+    $config = [
+        'before_widget' => '<section class="widget %1$s %2$s">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h3>',
+        'after_title'   => '</h3>'
+    ];
+    register_sidebar([
+        'name'          => __('Primary', 'sage'),
+        'id'            => 'sidebar-primary'
+    ] + $config);
+
+});
+```
+
+Use `@sidebar` directive in your Blade files to render a menu.
+```blade
+@sidebar('sidebar-primary')
+```
+
+Alternatively, you can still use WordPress functions to display a sidebar.
+
+```blade
+@php( \dynamic_sidebar('sidebar-primary') )
 ```
 ## Documentation
 - [Blade Directives](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md)

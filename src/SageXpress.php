@@ -5,6 +5,7 @@ namespace SageXpress;
 use Roots\Sage\Container;
 use SageXpress\Blade\DirectivesProvider;
 use SageXpress\Providers\MenuProvider;
+use SageXpress\Providers\SidebarProvider;
 
 class SageXpress {
 
@@ -39,6 +40,7 @@ class SageXpress {
 
     protected function registerSidebarProvider() {
 
+        new SidebarProvider($this->sage);
     }
 
     protected function registerShortcodesProvider() {
