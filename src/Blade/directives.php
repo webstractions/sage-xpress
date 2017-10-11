@@ -4,6 +4,50 @@ use SageXpress\Blade\DirectivesRepository;
 
 return [
 
+    /**
+     * WordPress centric directives
+     */
+    'loop' => function() {
+        return "<?php if (have_posts()) : while(have_posts()) : the_post(); ?>";
+    },
+
+    'endloop' => function() {
+        return "<?php endwhile; endif; ?>";
+    },
+
+    'query' => function($expression) {
+        return
+        "<?php $__query = new WP_Query(' . $expression . ');
+        if ($__query->have_posts()) :
+            while($__query->have_posts()) :
+                $__query->the_post(); ?>";
+
+    },
+
+    'endquery' => function() {
+        return "<?php endwhile; endif; wp_reset_postdata(); ?>";
+    },
+
+    'sidebar' => function($expression) {
+        return "<?php dynamic_sidebar($expression); ?>";
+    },
+
+    'menu' => function($expression) {
+        return sage('menu')->render($name);
+    },
+
+    'wphead' => function() {
+        return "<?php wp_head(); ?>";
+    },
+
+    'wpfooter' => function() {
+        return "<?php wp_footer(); ?>";
+    },
+
+    '' => function($expression) {
+
+    },
+
     /*
     |---------------------------------------------------------------------
     | @istrue / @isfalse
