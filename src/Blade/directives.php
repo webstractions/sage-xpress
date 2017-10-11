@@ -44,8 +44,8 @@ return [
         return "<?php wp_footer(); ?>";
     },
 
-    '' => function($expression) {
-
+    'doaction' => function($expression) {
+        return "<?php echo do_action($expression); ?>";
     },
 
     /*
