@@ -6,7 +6,8 @@
 A collection of extensions for your Roots\Sage 9.x beta themes.
 
 - **Blade Directives:** @directives for loop, query, sidebar, FontAwesome, and more.
-- **Menu Provider:** Register nav menus via configuration file.
+- **Menu Provider:** Register nav menu and markup via configuration file.
+- **Sidebar Provider:** Register sidebar and widget markup via configuration file.
 
 ## Requirements
 This package is specifically built for `Roots\Sage 9.0.0-beta.4` and above. It goes without saying that your development server needs to have `Php 7.0` or greater as well.
