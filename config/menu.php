@@ -13,7 +13,7 @@ return [
      */
     'register' => [
         'primary'    => __('Primary Navigation', 'sage'),
-        'subsidiary' => __('Sub-footer Navigation', 'sage'),
+        'footer' => __('Footer Navigation', 'sage'),
     ],
 
     'default' => [
@@ -33,21 +33,12 @@ return [
      */
     'primary' => [
         'theme_location'    => 'primary',
-        'container_class'   => 'collapse navbar-collapse',
-        'container_id'      => 'primary-menu',
-        'menu_class'        => 'navbar-nav ml-auto',
         'depth'             => 2,
-        'fallback_cb'		  => '\App\Lib\WP_Bootstrap_Navwalker::fallback',
-        'walker'			  => new \App\Lib\WP_Bootstrap_Navwalker(),
     ],
 
-    'subsidiary' => [
-        'theme_location'    => 'subsidiary',
-        'container_class'   => 'row justify-content-center',
-        'container_id'      => 'subsidiary-menu',
+    'footer' => [
+        'theme_location'    => 'footer',
         'depth'             => 1,
-        'fallback_cb'		  => '\App\Lib\WP_Bootstrap_Navwalker::fallback',
-        'walker'			  => new \App\Lib\WP_Bootstrap_Navwalker(),
     ],
 
 ];

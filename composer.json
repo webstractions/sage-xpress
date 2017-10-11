@@ -25,6 +25,14 @@
   "suggest": {
       "filp/whoops": "^2.1"
   },
+  "scripts": {
+    "post-install-cmd": [
+        "SageXpress\\Composer\\PostCommand::copyFiles"
+    ],
+    "post-update-cmd": [
+        "SageXpress\\Composer\\PostCommand::copyFiles"
+    ]
+  },
   "autoload": {
       "psr-4": {
           "SageXpress\\": "src"

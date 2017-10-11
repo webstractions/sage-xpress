@@ -16,6 +16,10 @@ return [
 
         // 'name' => function($expresion) {}
 
+        'inspiring' => function() {
+            echo \SageXpress\Sageness::quote();
+        }
+
     ],
 
 ];
