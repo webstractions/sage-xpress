@@ -2,11 +2,13 @@
 
 namespace SageXpress\Providers;
 
+use SageXpress\Config\ConfigRepository;
+
 abstract class AbstractProvider
 {
     protected $app;
 
-    protected static $name='';
+    protected $name='';
 
     /**
      * Constructor
@@ -18,6 +20,8 @@ abstract class AbstractProvider
     function __construct($app)
     {
         $this->app = $app;
+
+        $this->registerConfig();
 
         $this->boot();
     }
@@ -39,6 +43,13 @@ abstract class AbstractProvider
     public static function register(){}
 
     /**
+     * Register a config path.
+     *
+     * @return void
+     */
+    public function registerConfig(){}
+
+    /**
      * Render a provider's view component.
      *
      * @return void
@@ -48,11 +59,26 @@ abstract class AbstractProvider
     /**
      * Get configuration for this provider.
      *
-     * @param $item The name of the config file item.
+     * @param $key The name of the config file item.
      * @return void
      */
-    protected function getConfig($item)
+    protected function getConfig($key)
     {
-        return $this->app['config']->get( $item );
+        return $this->app['config']->get( $key );
+    }
+
+    /**
+     * Set configuration item for this provider.
+     *
+     * @param $key The name of the config file item.
+     * @return void
+     */
+    protected function setConfig($key)
+    {
+        if( ! $this->app['config']->get($key) ) {
+            $rootPath = $this->app['config']->get('theme.dir');
+            $value = require $rootPath . "/config/$key.php";
+            $this->app['config']->set($key,$value);
+        }
     }
 }
