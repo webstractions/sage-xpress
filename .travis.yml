@@ -1,6 +1,5 @@
 language: php
 sudo: false
-dist: trusty
 php:
   - 7.1
   - 7.0
@@ -11,14 +10,3 @@ matrix:
   allow_failures:
     - php: nightly
 
-cache:
-  apt: true
-  directories:
-    - $HOME/.composer/cache
-    - vendor
-
-before_install:
-  - composer self-update
-
-install:
-  - composer install -o --prefer-dist --no-interaction
