@@ -213,6 +213,7 @@ Will produce the following Php.
 
 ## Documentation
 - [Blade Directives](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md)
+- [Schema Attributes](https://github.com/webstractions/sage-xpress/tree/master/docs/schema.md)
 
 ## Acknowledgements
 - Roots/Sage Discourse thread [Resources for Blade](https://discourse.roots.io/t/best-practice-resources-for-blade/8341) and [Log1x's](https://discourse.roots.io/u/Log1x) contributions for inspiring the Blade component.
