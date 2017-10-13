@@ -50,6 +50,18 @@ return [
 
     /*
     |---------------------------------------------------------------------
+    | @schema
+    |---------------------------------------------------------------------
+    */
+    'schema' => function($expression) {
+        // $expression should be in form of [$slug, $context='', $attr=[]]
+        $expression = explode( ",", $expression );
+        $expression = array_replace( ['','',[] ] , $expression);
+        $html = \App\sage()->make('HtmlSchema')->attr($expression[0],$expression[1],$expression[2]);
+        return $html;
+    },
+    /*
+    |---------------------------------------------------------------------
     | @istrue / @isfalse
     |---------------------------------------------------------------------
     */

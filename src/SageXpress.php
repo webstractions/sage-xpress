@@ -21,6 +21,7 @@ class SageXpress {
         $this->registerBladeDirectives();
         $this->registerMenuProvider();
         $this->registerSidebarProvider();
+        $this->registerSchemaProvider();
         $this->registerShortcodesProvider();
         $this->registerLayoutProvider();
     }
@@ -41,6 +42,12 @@ class SageXpress {
     protected function registerSidebarProvider() {
 
         new SidebarProvider($this->sage);
+    }
+
+    protected function registerSchemaProvider() {
+
+        $this->sage->bind('HtmlSchema', \SageXpress\Schema\SchemaFunctions::class);
+        new \SageXpress\Schema\SchemaProvider($this->sage);
     }
 
     protected function registerShortcodesProvider() {

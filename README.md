@@ -8,6 +8,7 @@ A collection of extensions for your Roots\Sage 9.x beta themes.
 - **Blade Directives:** @directives for loop, query, sidebar, FontAwesome, and more.
 - **Menu Provider:** Register nav menu and markup via configuration file.
 - **Sidebar Provider:** Register sidebar and widget markup via configuration file.
+- **Schema Provider** Quickly add schema.org markup via @schema directive.
 
 ## Requirements
 This package is specifically built for `Roots\Sage 9.0.0-beta.4` and above. It goes without saying that your development server needs to have `Php 7.0` or greater as well.
@@ -46,6 +47,9 @@ add_action('after_setup_theme', function (){
 
 });
 ```
+
+**Important** Since this package is introducing new Blade directives, you should clear your cached/compiled Blade files. Those files are located in `wp-content\uploads\cache`.
+
 ## Overview
 Outside of one line of code that you need to add to `setup.php` and the config files, there is nothing else you need to do. Config files are automatically registered with the Sage Container, no messing with `functions.php`.
 
@@ -188,12 +192,32 @@ Alternatively, you can still use WordPress functions to display a sidebar.
 ```blade
 @php( \dynamic_sidebar('sidebar-primary') )
 ```
+
+### Schema Provider
+As with the Blade directives, there are numerous schema.org attributes and has its own documentaion. There are also two filters for each attribute, which can be used to extend them further. See [Schema Provider Documentation](https://github.com/webstractions/sage-xpress/tree/master/docs/schema.md) for complete details.
+
+Using the `@schema` directive makes markup simple.
+
+```blade
+{{--  Author  --}}
+<span @schema( 'entry-author' )>
+  @php( the_author_posts_link() )
+</span>
+```
+Will produce the following Php.
+```php
+<span class="entry-author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person">
+    <?php ( the_author_posts_link() ); ?>
+</span>
+```
+
 ## Documentation
 - [Blade Directives](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md)
 
 ## Acknowledgements
 - Roots/Sage Discourse thread [Resources for Blade](https://discourse.roots.io/t/best-practice-resources-for-blade/8341) and [Log1x's](https://discourse.roots.io/u/Log1x) contributions for inspiring the Blade component.
 - Appstract's [Laravel Blade Directives](https://github.com/appstract/laravel-blade-directives) for configuration and service provider logic.
+- Justin Tadlock's `hybrid_attr()` functions from older versions of [Hybrid Core](https://github.com/justintadlock/hybrid-core).
 
 
 ## License
