@@ -8,27 +8,22 @@ use Roots\Sage\Container;
 
 class DirectivesProvider extends ServiceProvider
 {
+    protected $configpath;
+
     /**
      * Bootstrap the application services.
      */
     public function boot()
     {
+        $this->configpath = $this->app['config']['theme.dir'] . '/config/blade-directives.php';
+
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/blade-directives.php' => config_path('blade-directives.php'),
+                __DIR__.'/../config/blade-directives.php' => $this->configpath,
             ], 'config');
         }
 
-        $this->registerDirectives();
-    }
-
-    /**
-     * Register the application services.
-     */
-    public function register()
-    {
-        $this->registerDirectives($this->app);
-        $this->mergeConfigFrom(__DIR__.'/../../config/blade-directives.php', 'blade-directives');
+        $this->register();
     }
 
     /**
@@ -36,17 +31,18 @@ class DirectivesProvider extends ServiceProvider
      *
      * @return void
      */
-    public function registerDirectives($app)
+    public function register()
     {
-        $directives = require __DIR__.'/directives.php';
-
-        $sageBlade = $app->get('sage.blade');
+        $this->configpath = $this->app['config']['theme.dir'] . '/config/blade-directives.php';
+        $defaults = require __DIR__.'/blade-directives.php';
+        $directives = array_merge( $defaults, require $this->configpath);
+        $blade = $this->app->get('sage.blade');
 
         // $directives = array_merge(
         //     $directives,
         //     Config::get('blade-directives.directives')
         // );
 
-        DirectivesRepository::register($directives, $sageBlade);
+        DirectivesRepository::register($directives, $blade);
     }
 }
