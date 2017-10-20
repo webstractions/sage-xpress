@@ -10,6 +10,8 @@ abstract class AbstractProvider
 
     protected $name='';
 
+    protected $config = [];
+
     /**
      * Constructor
      *
@@ -64,7 +66,7 @@ abstract class AbstractProvider
      */
     protected function getConfig($key)
     {
-        return $this->app['config']->get( $key );
+        return $this->config = $this->app['config']->get( $key );
     }
 
     /**
@@ -80,5 +82,7 @@ abstract class AbstractProvider
             $value = require $rootPath . "/config/$key.php";
             $this->app['config']->set($key,$value);
         }
+
+        return $this->getConfig($key);
     }
 }

@@ -13,7 +13,8 @@ class MenuProvider extends AbstractProvider
      * @return void
      */
     public function boot() {
-        register_nav_menus($this->getConfig( $this->name . '.register'));
+
+        register_nav_menus($this->config['register']);
     }
 
     /**
@@ -23,7 +24,7 @@ class MenuProvider extends AbstractProvider
      */
     public function registerConfig() {
 
-        $this->setConfig( $this->name );
+        $this->config = $this->setConfig( $this->name );
     }
 
     /**
@@ -34,11 +35,11 @@ class MenuProvider extends AbstractProvider
      */
     public function render($name = null)
     {
-        $registry = array_keys($this->getConfig( $this->name . '.register'));
-        $default = $this->getConfig( $this->name . '.default');
+        $registry = array_keys( $this->config['register'] );
+        $default = $this->config['default'];
 
         if (in_array($name, $registry)) {
-            return wp_nav_menu( $this->getConfig("menu.$name") + $default );
+            return wp_nav_menu( $this->config["$name"] + $default );
         }
 
         return false;

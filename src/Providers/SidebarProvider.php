@@ -15,9 +15,9 @@ class SidebarProvider extends AbstractProvider
     public function boot() {
 
         \add_action('widgets_init', function () {
-            foreach( $this->getConfig('sidebar.register') as $sidebar ) {
+            foreach( $this->config['register'] as $sidebar ) {
                 \register_sidebar(
-                    $this->getConfig("sidebar.$sidebar") + $this->getConfig('sidebar.default')
+                    $this->config["$sidebar"] + $this->config['default']
                 );
             }
         });
@@ -30,8 +30,8 @@ class SidebarProvider extends AbstractProvider
      */
     public function registerConfig() {
 
-                $this->setConfig( $this->name );
-            }
+        $this->config = $this->setConfig( $this->name );
+    }
 
     /**
      * Render a registered item.
@@ -41,7 +41,7 @@ class SidebarProvider extends AbstractProvider
      */
     public function render($name = null)
     {
-        $registry = array_keys($this->getConfig('sidebar.register'));
+        $registry = array_keys( $this->config['register'] );
 
         if (in_array($name, $registry)) {
             return dynamic_sidebar($name);
