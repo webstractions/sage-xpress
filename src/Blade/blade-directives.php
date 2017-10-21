@@ -33,7 +33,11 @@ return [
     },
 
     'menu' => function($expression) {
-        return sage('menu')->render($name);
+        return \App\sage('menu')->render($expression);
+    },
+
+    'commentform' => function() {
+        return \App\sage('comments')->renderCommentForm();
     },
 
     'wphead' => function() {

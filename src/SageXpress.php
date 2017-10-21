@@ -4,9 +4,10 @@ namespace SageXpress;
 
 use Roots\Sage\Container;
 use SageXpress\Blade\DirectivesProvider;
+use SageXpress\Providers\CommentsProvider;
 use SageXpress\Providers\MenuProvider;
 use SageXpress\Providers\SidebarProvider;
-
+use SageXpress\Schema\SchemaProvider;
 class SageXpress {
 
     protected $sage;
@@ -22,6 +23,7 @@ class SageXpress {
         $this->registerMenuProvider();
         $this->registerSidebarProvider();
         $this->registerSchemaProvider();
+        $this->registerCommentsProvider();
         $this->registerShortcodesProvider();
         $this->registerLayoutProvider();
     }
@@ -39,6 +41,13 @@ class SageXpress {
         });
     }
 
+    protected function registerCommentsProvider() {
+
+        $this->sage->singleton('sage.comments', function () {
+            return new CommentsProvider($this->sage);
+        });
+    }
+
     protected function registerSidebarProvider() {
 
         new SidebarProvider($this->sage);
@@ -47,7 +56,7 @@ class SageXpress {
     protected function registerSchemaProvider() {
 
         $this->sage->bind('HtmlSchema', \SageXpress\Schema\SchemaFunctions::class);
-        new \SageXpress\Schema\SchemaProvider($this->sage);
+        new SchemaProvider($this->sage);
     }
 
     protected function registerShortcodesProvider() {
