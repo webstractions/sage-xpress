@@ -27,7 +27,9 @@ class SchemaProvider extends AbstractProvider {
      *
      * @return void
      */
-    public static function register() {}
+    public function register() {
+        $this->app->bind('HtmlSchema', \SageXpress\Schema\SchemaFunctions::class);
+    }
 
     /**
      * Register a config path.

@@ -18,6 +18,18 @@ class CommentsProvider extends AbstractProvider
     }
 
     /**
+     * Register this provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton('sage.comments', function () {
+            return new CommentsProvider($this->app);
+        });
+    }
+
+    /**
      * Register a config path.
      *
      * @return void
@@ -32,8 +44,8 @@ class CommentsProvider extends AbstractProvider
      *
      * @return comment_form()
      */
-    public function renderCommentForm()
+    public function getCommentFormConfig()
     {
-        return comment_form( $this->config['comment_form'] );
+        return $this->config['comment_form'];
     }
 }

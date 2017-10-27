@@ -37,7 +37,8 @@ return [
     },
 
     'commentform' => function() {
-        return \App\sage('comments')->renderCommentForm();
+        $config = \App\sage('comments')->getCommentFormConfig();
+        return comment_form($config);
     },
 
     'wphead' => function() {

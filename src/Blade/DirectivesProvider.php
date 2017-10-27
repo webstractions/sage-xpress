@@ -2,28 +2,19 @@
 
 namespace SageXpress\Blade;
 
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Roots\Sage\Container;
+use SageXpress\Providers\AbstractProvider;
 
-class DirectivesProvider extends ServiceProvider
+class DirectivesProvider extends AbstractProvider
 {
-    protected $configpath;
+    protected $name = 'blade-directives';
 
     /**
      * Bootstrap the application services.
      */
     public function boot()
     {
-        $this->configpath = $this->app['config']['theme.dir'] . '/config/blade-directives.php';
-
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__.'/../config/blade-directives.php' => $this->configpath,
-            ], 'config');
-        }
-
-        $this->register();
+        //
     }
 
     /**
@@ -33,16 +24,20 @@ class DirectivesProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->configpath = $this->app['config']['theme.dir'] . '/config/blade-directives.php';
         $defaults = require __DIR__.'/blade-directives.php';
-        $directives = array_merge( $defaults, require $this->configpath);
+        $directives = array_merge( $defaults, $this->config);
         $blade = $this->app->get('sage.blade');
 
-        // $directives = array_merge(
-        //     $directives,
-        //     Config::get('blade-directives.directives')
-        // );
-
         DirectivesRepository::register($directives, $blade);
+    }
+
+    /**
+     * Register a config path.
+     *
+     * @return void
+     */
+    public function registerConfig()
+    {
+        $this->config = $this->setConfig( $this->name );
     }
 }

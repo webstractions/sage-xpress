@@ -18,6 +18,18 @@ class MenuProvider extends AbstractProvider
     }
 
     /**
+     * Register this provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton('sage.menu', function () {
+            return new MenuProvider($this->app);
+        });
+    }
+
+    /**
      * Register a config path.
      *
      * @return void

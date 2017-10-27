@@ -22,10 +22,7 @@ abstract class AbstractProvider
     function __construct($app)
     {
         $this->app = $app;
-
         $this->registerConfig();
-
-        $this->boot();
     }
 
     /**
@@ -42,7 +39,7 @@ abstract class AbstractProvider
      *
      * @return void
      */
-    public static function register(){}
+    public function register(){}
 
     /**
      * Register a config path.
@@ -77,7 +74,8 @@ abstract class AbstractProvider
      */
     protected function setConfig($key)
     {
-        if( ! $this->app['config']->get($key) ) {
+        // dd($this->app->sage);
+        if( ! $this->app->config->get($key) ) {
             $rootPath = $this->app['config']->get('theme.dir');
             $value = require $rootPath . "/config/$key.php";
             $this->app['config']->set($key,$value);
