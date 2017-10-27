@@ -5,12 +5,8 @@ namespace SageXpress;
 use Roots\Sage\Container;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
-use SageXpress\Blade\DirectivesProvider;
 use SageXpress\Providers\AbstractProvider;
-use SageXpress\Providers\CommentsProvider;
-use SageXpress\Providers\MenuProvider;
-use SageXpress\Providers\SidebarProvider;
-use SageXpress\Schema\SchemaProvider;
+
 class SageXpress {
 
     /**
