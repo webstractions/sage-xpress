@@ -51,12 +51,32 @@ add_action('after_setup_theme', function (){
 
 **Important** Since this package is introducing new Blade directives, you should clear your cached/compiled Blade files. Those files are located in `wp-content\uploads\cache`.
 
+## Configuration Files
+Currently, you have to copy and paste the sample config files into your theme `config` directory. You can find them in the `vendor\webstractions\sage-xpress\config` directory.
+
+The configuration files are a major component of SageXpress that drives the Providers (more below).
+
+- `app.php` Registers theme environment, providers, composers, and aliases.
+- `blade-directives.php` For your custom Blade directives.
+- `comments.php` Comment form configuration. Other comments related tasks.
+- `menu.php` Register nav menus and configurations.
+- `sidebar.php` Register sidebars and configurations.
+
 ## Overview
 Outside of one line of code that you need to add to `setup.php` and the config files, there is nothing else you need to do. Config files are automatically registered with the Sage Container, no messing with `functions.php`.
 
 Additionally, your `setup.php` file should actually be leaner. No need for `widgets_init`, `register_nav_menus`, and funky `wp_nav_menu` callouts in your controllers or blade files. The providers automatically do the registration for you based on your configurations and there are Blade Directives to spew them out.
 
-### Blade Directives
+## The SageXpress Provider
+SageXpress providers are similar to Laravel Service Providers, but they contain additional methods for `config()` and `render()`. You can think of them as configurable components that can be rendered in a Blade view.
+
+Providers are autoloaded via the `config\app.php` congifuration file during the SageXpress boot process. The providers are then bound to the Sage Container where you can use or reference them from your theme classes and controllers.
+
+Providers handle WordPress-centric methods for registration, filters, etc. The `render()` method can be used for the creation of custom Blade directives.
+
+### Blade Directives Provider
+Provides some handy Blade directives targetted mostly for WordPress use, but other helpful functionality as well.
+
 There are a whole slew of directives, and requires its own [Blade Directives Documentation](https://github.com/webstractions/sage-xpress/tree/master/docs/blade.md).
 
 One example, the `@loop` directive does a nice job of cleaning up your templates.
