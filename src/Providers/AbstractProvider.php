@@ -10,18 +10,18 @@ abstract class AbstractProvider
 
     protected $name='';
 
-    protected $config = [];
-
     /**
      * Constructor
      *
-     * Automatically calls the boot() method.
+     * Stores an instance of the Container and
+     * registers possible config and render traits.
      *
      * @param $app The Sage Container
      */
     function __construct($app)
     {
         $this->app = $app;
+
         $this->registerConfig();
     }
 
@@ -42,7 +42,7 @@ abstract class AbstractProvider
     public function register(){}
 
     /**
-     * Register a config path.
+     * Register possible ConfigTrait.
      *
      * @return void
      */
@@ -54,33 +54,4 @@ abstract class AbstractProvider
      * @return void
      */
     public function render(){}
-
-    /**
-     * Get configuration for this provider.
-     *
-     * @param $key The name of the config file item.
-     * @return void
-     */
-    protected function getConfig($key)
-    {
-        return $this->config = $this->app['config']->get( $key );
-    }
-
-    /**
-     * Set configuration item for this provider.
-     *
-     * @param $key The name of the config file item.
-     * @return void
-     */
-    protected function setConfig($key)
-    {
-        // dd($this->app->sage);
-        if( ! $this->app->config->get($key) ) {
-            $rootPath = $this->app['config']->get('theme.dir');
-            $value = require $rootPath . "/config/$key.php";
-            $this->app['config']->set($key,$value);
-        }
-
-        return $this->getConfig($key);
-    }
 }

@@ -4,10 +4,13 @@ namespace SageXpress\Blade;
 
 use Roots\Sage\Container;
 use SageXpress\Providers\AbstractProvider;
+use SageXpress\Providers\Traits\ConfigTrait;
 
 class DirectivesProvider extends AbstractProvider
 {
     protected $name = 'blade-directives';
+
+    use ConfigTrait;
 
     /**
      * Bootstrap the application services.
@@ -29,15 +32,5 @@ class DirectivesProvider extends AbstractProvider
         $blade = $this->app->get('sage.blade');
 
         DirectivesRepository::register($directives, $blade);
-    }
-
-    /**
-     * Register a config path.
-     *
-     * @return void
-     */
-    public function registerConfig()
-    {
-        $this->config = $this->setConfig( $this->name );
     }
 }

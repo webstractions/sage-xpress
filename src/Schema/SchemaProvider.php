@@ -32,20 +32,6 @@ class SchemaProvider extends AbstractProvider {
     }
 
     /**
-     * Register a config path.
-     *
-     * @return void
-     */
-    public function registerConfig() {}
-
-    /**
-     * Render a provider's view component.
-     *
-     * @return void
-     */
-    public function render() {}
-
-    /**
      * Add WordPress Filters sorted by context.
      *
      * Devs can filter each filter with an \add_filter().

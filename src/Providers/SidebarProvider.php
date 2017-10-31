@@ -1,9 +1,13 @@
 <?php
 namespace SageXpress\Providers;
 
+use SageXpress\Providers\Traits\ConfigTrait;
+
 class SidebarProvider extends AbstractProvider
 {
     protected $name = 'sidebar';
+
+    use ConfigTrait;
 
     /**
      * Gets fired during instantiation of the provider.
@@ -21,16 +25,6 @@ class SidebarProvider extends AbstractProvider
                 );
             }
         });
-    }
-
-    /**
-     * Register a config path.
-     *
-     * @return void
-     */
-    public function registerConfig() {
-
-        $this->config = $this->setConfig( $this->name );
     }
 
     /**

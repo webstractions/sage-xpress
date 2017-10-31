@@ -1,9 +1,13 @@
 <?php
 namespace SageXpress\Providers;
 
+use SageXpress\Providers\Traits\ConfigTrait;
+
 class MenuProvider extends AbstractProvider
 {
     protected $name = 'menu';
+
+    use ConfigTrait;
 
     /**
      * Gets fired during instantiation of the provider.
@@ -12,8 +16,8 @@ class MenuProvider extends AbstractProvider
      *
      * @return void
      */
-    public function boot() {
-
+    public function boot()
+    {
         register_nav_menus($this->config['register']);
     }
 
@@ -27,16 +31,6 @@ class MenuProvider extends AbstractProvider
         $this->app->singleton('sage.menu', function () {
             return new MenuProvider($this->app);
         });
-    }
-
-    /**
-     * Register a config path.
-     *
-     * @return void
-     */
-    public function registerConfig() {
-
-        $this->config = $this->setConfig( $this->name );
     }
 
     /**

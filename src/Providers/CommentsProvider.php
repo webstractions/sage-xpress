@@ -1,9 +1,13 @@
 <?php
 namespace SageXpress\Providers;
 
+use SageXpress\Providers\Traits\ConfigTrait;
+
 class CommentsProvider extends AbstractProvider
 {
     protected $name = 'comments';
+
+    use ConfigTrait;
 
     /**
      * Gets fired during instantiation of the provider.
@@ -30,19 +34,9 @@ class CommentsProvider extends AbstractProvider
     }
 
     /**
-     * Register a config path.
+     * Get comment form arguments.
      *
-     * @return void
-     */
-    public function registerConfig()
-    {
-        $this->config = $this->setConfig( $this->name );
-    }
-
-    /**
-     * Render a registered comment form.
-     *
-     * @return comment_form()
+     * @return comment_form() $args
      */
     public function getCommentFormConfig()
     {
