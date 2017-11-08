@@ -52,6 +52,17 @@ return [
     'doaction' => function($expression) {
         return "<?php echo do_action($expression); ?>";
     },
+    /**
+     * @inject - Replacement for Laravel @inject reference to app()
+     *
+     * @uses - sage(service)
+     */
+    'inject' => function($expression) {
+        $segments = explode(',', preg_replace("/[\(\)\\\"\']/", '', $expression));
+        $variable = trim($segments[0]);
+        $service = trim($segments[1]);
+        return "<?php \${$variable} = App\sage('{$service}'); ?>";
+    },
 
     /*
     |---------------------------------------------------------------------
