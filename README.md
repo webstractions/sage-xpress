@@ -3,13 +3,15 @@
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://travis-ci.org/webstractions/sage-xpress.svg?branch=master)](https://travis-ci.org/webstractions/sage-xpress)
 
-A collection of extensions for your Roots\Sage 9.x beta themes.
+A collection of extensions, providers, and Blade revisions for your Roots\Sage 9.x beta themes.
 
 - **Blade Directives:** @directives for loop, query, sidebar, FontAwesome, and more.
 - **Menu Provider:** Register nav menu and markup via configuration file.
 - **Sidebar Provider:** Register sidebar and widget markup via configuration file.
 - **Comment Form Provider:** Register comment form markup via configuration file.
 - **Schema Provider** Quickly add schema.org markup via @schema directive.
+- **Facade/Alias Support** Provide a "static" interface to classes that are bound to the Sage container.
+- **Blade Fixes** Fixes Blade `@inject` directive and 5.5's `Blade::if()` method.
 
 ## Requirements
 This package is specifically built for `Roots\Sage 9.0.0-beta.4` and above. It goes without saying that your development server needs to have `Php 7.0` or greater as well.
@@ -66,6 +68,25 @@ The configuration files are a major component of SageXpress that drives the Prov
 Outside of one line of code that you need to add to `setup.php` and the config files, there is nothing else you need to do. Config files are automatically registered with the Sage Container, no messing with `functions.php`.
 
 Additionally, your `setup.php` file should actually be leaner. No need for `widgets_init`, `register_nav_menus`, and funky `wp_nav_menu` callouts in your controllers or blade files. The providers automatically do the registration for you based on your configurations and there are Blade Directives to spew them out.
+
+## Facades and Aliases
+You can now register `aliases` via the `config\app.php` configuration file. Currently, there are standard Laravel Facades for Blade, Config, Event, File, and View. Facades for SageXpress providers are in a state of flux and currently supports Comments, Menu, and Sidebar.
+
+With Facades, you can reference bound providers with unruly instantiation and method calls like the following.
+
+Instead of
+```php
+sage('blade')->compiler()->directive('name', function ($expression) {
+        // Handle the directive.
+    });
+```
+You can:
+```php
+Blade::directive('name', function ($expression) {
+        // Handle the directive.
+    });
+```
+Facades have some advantages. Rather than list the pros and cons of Facades, and how they work, please reference the [Laravel Facade Documentation](https://laravel.com/docs/5.4/facades).
 
 ## The SageXpress Provider
 SageXpress providers are similar to Laravel Service Providers, but they contain additional methods for `config()` and `render()`. You can think of them as configurable components that can be rendered in a Blade view.
