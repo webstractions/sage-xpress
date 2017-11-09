@@ -5,6 +5,8 @@ namespace SageXpress;
 use Roots\Sage\Container;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Facade;
+use SageXpress\Core\AliasLoader;
 use SageXpress\Providers\AbstractProvider;
 
 class SageXpress {
@@ -37,7 +39,22 @@ class SageXpress {
 
     public function bootstrap()
     {
+        $this->registerFacades();
         $this->registerConfiguredProviders();
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @return void
+     */
+    public function registerFacades()
+    {
+        Facade::clearResolvedInstances();
+
+        Facade::setFacadeApplication($this->sage);
+
+        AliasLoader::getInstance($this->sage->make('config')->get('app.aliases', []))->register();
     }
 
     /**
